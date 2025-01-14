@@ -5,25 +5,25 @@ from database.models
 import Base
 from database.database import engine
 
-# ایجاد جداول دیتابیس
+# Create Tables
 Base.metadata.create_all(bind=engine)
 
-# ایجاد برنامه اصلی FastAPI
+# Running FastAPI
 app = FastAPI()
 
-# تنظیمات CORS
+# CORS Setting
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # اجازه دسترسی به همه کلاینت‌ها
+    allow_origins=["*"],  # All Client can access
     allow_credentials=True,
-    allow_methods=["*"],  # اجازه همه متدها (GET, POST, PUT, DELETE)
-    allow_headers=["*"],  # اجازه همه هدرها
+    allow_methods=["*"],  # All Methodes (GET, POST, PUT, DELETE)
+    allow_headers=["*"],  # All Headers
 )
 
-# اضافه کردن اندپوینت‌ها
+# Adding Endpoints
 app.include_router(routes_app)
 
-# اجرای برنامه
+# Run Program
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)
