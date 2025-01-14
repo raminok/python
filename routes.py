@@ -6,7 +6,7 @@ from pydantic import BaseModel
 import logging
 from datetime import datetime
 
-# تنظیمات لاگ
+# Logging settings
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
-# مدل‌های درخواست و پاسخ
+# Request and response models
 class CreateTicketRequest(BaseModel):
     user_id: int
     subject: str
@@ -43,7 +43,7 @@ class TicketResponse(BaseModel):
     created_at: datetime
     updated_at: datetime
 
-# ایجاد یک تیکت
+# Create a ticket
 @router.post("/tickets", response_model=TicketResponse)
 def create_ticket_endpoint(request: CreateTicketRequest, db: Session = Depends(get_db)):
     try:
@@ -57,7 +57,7 @@ def create_ticket_endpoint(request: CreateTicketRequest, db: Session = Depends(g
         logger.error(f"Error creating ticket: {str(e)}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
     
-# بررسی وضعیت تیکت و به‌روزرسانی آن
+# Update ticket status and details
 @router.put("/tickets", response_model=TicketResponse)
 def update_ticket_endpoint(request: UpdateTicketRequest, db: Session = Depends(get_db)):
     try:
@@ -82,7 +82,7 @@ def update_ticket_endpoint(request: UpdateTicketRequest, db: Session = Depends(g
         logger.error(f"Error updating ticket: {str(e)}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
-# حذف تیکت
+# Delete a ticket
 @router.post("/tickets/delete")
 def delete_ticket_endpoint(request: DeleteTicketRequest, db: Session = Depends(get_db)):
     try:
@@ -95,7 +95,7 @@ def delete_ticket_endpoint(request: DeleteTicketRequest, db: Session = Depends(g
         logger.error(f"Error deleting ticket: {str(e)}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
-# مشاهده تمام تیکت‌ها
+# Retrieve all tickets
 @router.get("/tickets", response_model=list[TicketResponse])
 def get_all_tickets_endpoint(db: Session = Depends(get_db)):
     try:
