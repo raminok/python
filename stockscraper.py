@@ -1,4 +1,8 @@
-# Extracting and Visualizing Stock Data
+###############################################
+# Extracting and Visualizing Stock Data       #
+#                                             #
+# Edit by : Ramin Orak 13/5/2024              #
+###############################################
 import yfinance as yf
 import pandas as pd
 import requests
