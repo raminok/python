@@ -1,3 +1,5 @@
+# This is a middleware function scripts for business layer of ticketing system
+
 from database import DATABASE_CONFIG
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
