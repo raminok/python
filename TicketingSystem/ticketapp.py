@@ -1,3 +1,8 @@
+###############################################
+# Thicket Microservice for frontend           #
+#                                             #
+# Edit by : Ramin Orak 11/11/2024             #
+###############################################
 import httpx
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.responses import JSONResponse
