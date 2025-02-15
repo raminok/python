@@ -1,3 +1,16 @@
+"""
+Profile Matcher API
+===================
+
+A FastAPI-based service that retrieves player profiles, matches them with active campaigns,
+and updates the player's data accordingly.
+
+Author: Ramin Orak
+Date: 2025-02-13
+Version: 1.0.0
+License: MIT License
+"""
+
 from fastapi import FastAPI, HTTPException, Depends
 from pydantic import BaseModel
 from datetime import datetime, timezone
@@ -10,7 +23,6 @@ import logging
 import uvicorn
 import json
 
-
 DATABASE_URL = "sqlite:///players.db"
 
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
@@ -20,7 +32,6 @@ Base = declarative_base()
 #  Define Database Models
 class Player(Base):
     __tablename__ = "players"
-
     player_id = Column(String, primary_key=True, index=True)
     profile = Column(JSON)
 
@@ -89,26 +100,24 @@ mock_player_profile ={
         "_customfield": "mycustom"
     }
 
+# This function run for first time to put and initialize primary Mock sample
 def seed_database():
-    db = SessionLocal()
-    player_count = db.query(Player).count()
-    if player_count == 0:
-        sample_player = Player(
-            player_id=mock_player_profile["player_id"],
-            profile=mock_player_profile
-        )
-        
-        db.add(sample_player)
-        db.commit()
+    with SessionLocal() as db:
 
-    db.close()
+        if db.query(Player).count() == 0:
+            sample_player = Player(
+                player_id=mock_player_profile["player_id"],
+                profile=mock_player_profile
+            )
+            db.add(sample_player)
+            db.commit()
 
 app = FastAPI()
-
 
 #  sqllit does't support UTC time 
 def parse_datetime(date_str):
     formats = ["%Y-%m-%d %H:%M:%SZ", "%Y-%m-%dT%H:%M:%S", "%Y-%m-%d"]
+
     for fmt in formats:
         try:
             #  offset aware - it always send zone time
@@ -116,15 +125,14 @@ def parse_datetime(date_str):
             return dt.replace(tzinfo=timezone.utc)  
         except ValueError:
             continue
+
     return None
         
 #  Fetch player profile from database
 def get_player_profile(db: Session, player_id: str):
     player = db.query(Player).filter(Player.player_id == player_id).first()
-    
     if not player:
         return None
-
     return player.profile
 
 #  Update player profile in database
@@ -132,7 +140,6 @@ def update_player_profile(db: Session, player_id: str, profile: Dict):
     player = db.query(Player).filter(Player.player_id == player_id).first()
     if not player:
         raise HTTPException(status_code=404, detail="Player not found in database")
-    
     player.profile = profile
     db.commit()
     
@@ -158,25 +165,19 @@ def get_active_campaigns():
 #  Function to check if player profile matches a campaign
 def matches_campaign(player, campaign):
     matchers = campaign["matchers"]
-    
     if not campaign["enabled"]:
         return False
-
-    #  Check for the validity and expire date of the Campaign 
+   #  Check for the validity and expire date of the Campaign 
     end_date = parse_datetime(campaign["end_date"])
-
     if end_date and end_date < datetime.now(timezone.utc):
         return False
-    
     #  Check level
     player_level = player.get("level")
-    
     if player_level is None:
         return False
-    
     if not (matchers["level"]["min"] <= player_level <= matchers["level"]["max"]):
         return False
-    
+ 
     #  Check country
     if player["country"] not in matchers["has"]["country"]:
         return False
