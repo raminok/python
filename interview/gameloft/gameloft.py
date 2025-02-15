@@ -1,14 +1,16 @@
 """
-Profile Matcher API
-===================
-
-A FastAPI-based service that retrieves player profiles, matches them with active campaigns,
-and updates the player's data accordingly.
-
-Author: Ramin Orak
-Date: 2025-02-13
-Version: 1.0.0
-License: MIT License
+////////////////////////////////////////////////////////////////////////////////////////////////
+/ Profile Matcher API                                                                          /
+/ ===================                                                                          /
+/                                                                                              /
+/ A FastAPI-based service that retrieves player profiles, matches them with active campaigns,  /
+/ and updates the player's data accordingly.                                                   /
+/                                                                                              /
+/ Author: Ramin Orak                                                                           /
+/ Date: 2025-02-13                                                                             /
+/ Version: 1.0.0                                                                               /
+/ License: MIT License                                                                         /
+////////////////////////////////////////////////////////////////////////////////////////////////
 """
 
 from fastapi import FastAPI, HTTPException, Depends
