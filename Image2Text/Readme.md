@@ -71,7 +71,12 @@ project-folder/
 5. Click **Copy Text** to copy the extracted text.
 
 ## ⚡ Example Screenshot
-![Screenshot](screenshot.png)
+![doc1](https://github.com/user-attachments/assets/e26b71a1-34c5-4609-a4d5-c7fb3503a1e8)
+
+# After upload an Image
+
+![doc2](https://github.com/user-attachments/assets/a020ec50-fb8a-4fb8-835b-cf1bb8e9b883)
+
 
 ## 📜 License
 This project is licensed under the **MIT License**.
