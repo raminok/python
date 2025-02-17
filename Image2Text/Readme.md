@@ -46,7 +46,7 @@ cd your-repo-name
 
 Run the Flask application:
 ```bash
-python app.py
+python server.py
 ```
 
 Open your browser and visit:
@@ -57,7 +57,7 @@ http://127.0.0.1:5000/
 ## 📜 Project Structure
 ```
 project-folder/
-│── app.py              # Main Flask application
+│── server.py              # Main Flask application
 │── templates/
 │   ├── index.html      # Web interface
 │── README.md           # Documentation
