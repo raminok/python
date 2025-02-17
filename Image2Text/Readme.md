@@ -1,5 +1,7 @@
 # Extract Text from Images using Flask and Tesseract OCR
 
+**Author: Ramin Orak Feb 2025**
+
 This is a simple web application that allows users to upload an image and extract text from it using **Tesseract OCR**. The extracted text is displayed alongside the uploaded image for easy comparison.
 
 ## 🚀 Features
