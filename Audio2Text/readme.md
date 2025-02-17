@@ -1,4 +1,5 @@
 # Audio to Text Transcription API
+**Author: Ramin Orak - Feb 2025**
 
 A Flask-based web application that allows users to upload an audio file and transcribe it into text using OpenAI's Whisper model.
 
