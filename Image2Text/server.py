@@ -1,3 +1,7 @@
+# Extract Text from Images using Flask and Tesseract OCR
+
+**Author: Ramin Orak**
+
 from flask import Flask, request, render_template
 import pytesseract
 from PIL import Image
